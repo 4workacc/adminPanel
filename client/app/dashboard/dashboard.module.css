@@ -1,0 +1,10 @@
+.dashboard{
+    display: flex;
+    flex-direction: row;
+}
+.menu {
+    flex: 1;
+}
+.main{
+    flex: 5;
+}
