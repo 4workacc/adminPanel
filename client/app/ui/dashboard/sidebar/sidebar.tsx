@@ -74,7 +74,7 @@ export default function Sidebar() {
           <li key={cat.title}>
           <span className={styles.cat}>{cat.title}</span> 
           {cat.list.map(item=>(
-            <MenuLink item={item} />
+            <MenuLink item={item} key={item.title}/>
           ))}
           </li>        
       ))}
