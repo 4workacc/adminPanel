@@ -1,6 +1,7 @@
  .container{
     position: sticky;
     top: 40px;
+    height: 100%;
  }
  .user{
     display: flex;
@@ -32,4 +33,20 @@
     font-size: 13px;
     font-weight: bold;
     margin: 10px 0;
+ }
+ .logout{
+   padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+    background-color: transparent;
+    border: none;
+    background: none;
+    width: 100%;
+    color: white;
+ }
+ .logout:hover{
+   background-color: #2e374a;
  }

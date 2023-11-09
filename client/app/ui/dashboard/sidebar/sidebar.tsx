@@ -7,7 +7,8 @@ import {
   MdShoppingBasket,
   MdAttachMoney,
   MdInsertChartOutlined,
-  MdSecurity
+  MdSecurity,
+  MdLogout
 } from "react-icons/md";
 
 const menuItems = [
@@ -78,6 +79,10 @@ export default function Sidebar() {
           </li>        
       ))}
       </ul>
+      <button className={styles.logout}>
+          <MdLogout />
+          Logout
+        </button>
     </div>
   )
 }
