@@ -27,7 +27,7 @@ const menuItems = [
       },
       {
         title: "Tests",
-        path: "/dashboard/Tests",
+        path: "/dashboard/tests",
         icon: <MdShoppingBasket />,
       },
       {

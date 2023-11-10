@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Navbar from '../ui/dashboard/navbar/navbar'
 import Sidebar from '../ui/dashboard/sidebar/sidebar'
 import styles from '../ui/dashboard/dashboard.module.css';
+import Footer from '../ui/dashboard/footer/footer';
 
 export const metadata: Metadata = {
     title: 'Dashboard',
@@ -19,6 +20,7 @@ export default function DashboardLayout({
             <div className={styles.content}>
                 <Navbar />
                 {children}
+                <Footer />
             </div>
         </div>
     )
