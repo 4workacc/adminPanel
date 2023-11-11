@@ -7,7 +7,7 @@ const fetchAllUsers = async () => {
           rowMode: 'array',
           text: 'SELECT * from users;',
         })
-        console.log(result.fields[1])
+        return result.rows
     }
     catch(Err){}
     finally{

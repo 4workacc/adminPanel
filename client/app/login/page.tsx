@@ -2,7 +2,8 @@ import styles from "@/app/ui/login/loginPage.module.css";
 import fetchAllUsers from "../utils/request";
 
 const LoginPage = async () => {  
-    console.log(await fetchAllUsers());
+   const users = (await fetchAllUsers());
+   console.log(users);
    return (
     <div className={styles.container}>
       <form action="" className={styles.form}>
