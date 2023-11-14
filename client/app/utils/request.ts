@@ -2,16 +2,17 @@ import { Client, PoolClient } from "pg"
 import conn from "./db"
 import { IUser } from "./types";
 
-export const fetchAllUsers = async () => {
+export const fetchAllUsers = async (requestUserName: string="") => {
     const client: PoolClient = await conn.connect();
     const resultUsers: IUser[] = [];
     try {
+        console.log("REQ", requestUserName)
         const result = await client.query({
             rowMode: 'array',
-            text: 'SELECT * from users;',
+            text: `SELECT * from users`,
         })
-        result.rows.map((row) => {
-            resultUsers.push({
+        result.rows.map((row) => {                          
+            const newUser: IUser = {
                 id: row[0],
                 fio: row[1],
                 code0: row[2] || -1,
@@ -24,8 +25,19 @@ export const fetchAllUsers = async () => {
                 status: row[9] || "",
                 old_fam: row[10] || "",
                 reason_of_code: row[11] || ""
-            })
+            };
+            if (requestUserName === "") {                
+                resultUsers.push(newUser);
+            }
+            else {
+                console.log(newUser.fio.toUpperCase().indexOf(requestUserName.toUpperCase()), newUser.fio.toUpperCase(), requestUserName.toUpperCase());
+                if (newUser.fio.toUpperCase().indexOf(requestUserName.toUpperCase()) !== -1) {
+                    resultUsers.push(newUser);
+                }
+            }               
+            
         })        
+        console.log(resultUsers);
         return resultUsers;
     }
     catch (Err) { }

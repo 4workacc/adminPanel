@@ -7,11 +7,14 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface IProp {
-    placeholder: string;
+    searchParams: {
+        username: string
+    };
 }
 
-const UserPage = async () => {
-    const users: IUser[] = await fetchAllUsers() || [];
+const UserPage = async ({searchParams}:IProp) => {
+    const requestUserName: string = searchParams?.username;
+    const users: IUser[] = await fetchAllUsers(requestUserName) || [];
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -57,7 +60,7 @@ const UserPage = async () => {
                                 Active
                             </td>
                             <td className={styles.buttons}>
-                                <Link href="/">
+                                <Link href={"/dashboard/users/"+user.id}>
                                     <button className={`${styles.button} ${styles.view}`}>View</button>
                                 </Link>
                                 <button className={`${styles.button} ${styles.delete}`}>Delete</button>
