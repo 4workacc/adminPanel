@@ -2,6 +2,7 @@
 import { MdSearch } from "react-icons/md";
 import styles from "./search.module.css";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import {useDebouncedCallback} from "use-debounce";
 
 interface IProp {
     placeholder: string
@@ -12,20 +13,23 @@ const Search = ({placeholder} : IProp) => {
     const {replace} = useRouter();
     const pathname = usePathname();
 
-    const params = new URLSearchParams(searchParams);
+    
+
    
-    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {        
-        if (e.currentTarget.value) {
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {   
+        const params = new URLSearchParams(searchParams);
+        params.set("page", "1");     
+        if (e.currentTarget.value.length > 2) {
             params.set("username", e.currentTarget.value);            
         } 
         else {
             params.delete("username");
         }
         replace(`${pathname}?${params}`);
-    }
+    };
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container}> 
             <MdSearch />
             <input 
                 type="text"

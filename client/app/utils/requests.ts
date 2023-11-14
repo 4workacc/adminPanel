@@ -2,14 +2,17 @@ import { Client, PoolClient } from "pg"
 import conn from "./db"
 import { IUser } from "./types";
 
-export const fetchAllUsers = async (requestUserName: string="") => {
+export const fetchUsers = async (requestUserName: string="", requestPage: string) => {
     const client: PoolClient = await conn.connect();
     const resultUsers: IUser[] = [];
+
+    const ITEMS_PER_PAGE = 4;
+
     try {
         console.log("REQ", requestUserName)
         const result = await client.query({
             rowMode: 'array',
-            text: `SELECT * from users`,
+            text: `SELECT * FROM users LIMIT ${ITEMS_PER_PAGE}`,
         })
         result.rows.map((row) => {                          
             const newUser: IUser = {
@@ -30,15 +33,19 @@ export const fetchAllUsers = async (requestUserName: string="") => {
                 resultUsers.push(newUser);
             }
             else {
-                console.log(newUser.fio.toUpperCase().indexOf(requestUserName.toUpperCase()), newUser.fio.toUpperCase(), requestUserName.toUpperCase());
                 if (newUser.fio.toUpperCase().indexOf(requestUserName.toUpperCase()) !== -1) {
                     resultUsers.push(newUser);
                 }
             }               
             
-        })        
-        console.log(resultUsers);
-        return resultUsers;
+        })               
+        
+        return resultUsers.sort((a:IUser, b:IUser)=>{
+            if (a.fio > b.fio) {
+                return 1
+            }
+            return -1
+        });
     }
     catch (Err) { }
     finally {

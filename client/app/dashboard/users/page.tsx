@@ -1,20 +1,22 @@
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import Search from "@/app/ui/dashboard/search/search";
 import styles from "@/app/ui/dashboard/users/users.module.css";
-import {fetchAllUsers} from "@/app/utils/request";
+import {fetchUsers} from "@/app/utils/requests";
 import { IUser } from "@/app/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 
 interface IProp {
     searchParams: {
-        username: string
+        username: string,
+        page: string,
     };
 }
 
 const UserPage = async ({searchParams}:IProp) => {
     const requestUserName: string = searchParams?.username;
-    const users: IUser[] = await fetchAllUsers(requestUserName) || [];
+    const requestPage: string = searchParams?.page || "1";
+    const users: IUser[] = await fetchUsers(requestUserName, requestPage) || [];
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -29,8 +31,9 @@ const UserPage = async ({searchParams}:IProp) => {
                         <td>Name</td>
                         <td>Code0</td>
                         <td>Code1</td>
-                        <td>Role</td>
-                        <td>Status</td>
+                        <td>Post</td>
+                        <td>Employement</td>
+                        <td>Unit</td>
                         <td>Action</td>
                     </tr>
                 </thead>
@@ -54,10 +57,13 @@ const UserPage = async ({searchParams}:IProp) => {
                                 {user.code1}
                             </td>
                             <td>
-                                Admin
+                                {user.post}
                             </td>
                             <td>
-                                Active
+                                {user.employement}
+                            </td>
+                            <td>
+                                {user.unit}
                             </td>
                             <td className={styles.buttons}>
                                 <Link href={"/dashboard/users/"+user.id}>
