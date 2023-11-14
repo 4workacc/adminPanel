@@ -75,7 +75,7 @@ const UserPage = async ({searchParams}:IProp) => {
                     ))}
                 </tbody>
             </table>
-            <Pagination />
+            <Pagination count={6}/>
         </div>
     )
 }

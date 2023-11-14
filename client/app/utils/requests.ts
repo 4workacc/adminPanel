@@ -6,14 +6,18 @@ export const fetchUsers = async (requestUserName: string="", requestPage: string
     const client: PoolClient = await conn.connect();
     const resultUsers: IUser[] = [];
 
-    const ITEMS_PER_PAGE = 4;
+    const ITEMS_PER_PAGE = 3;
 
     try {
         console.log("REQ", requestUserName)
         const result = await client.query({
             rowMode: 'array',
-            text: `SELECT * FROM users LIMIT ${ITEMS_PER_PAGE}`,
+            text: `SELECT * FROM users 
+                    LIMIT ${ITEMS_PER_PAGE}       
+                    OFFSET ${ITEMS_PER_PAGE*(+requestPage-1)}         
+                    `,
         })
+      
         result.rows.map((row) => {                          
             const newUser: IUser = {
                 id: row[0],
@@ -39,13 +43,13 @@ export const fetchUsers = async (requestUserName: string="", requestPage: string
             }               
             
         })               
-        
-        return resultUsers.sort((a:IUser, b:IUser)=>{
+        const finUsers = resultUsers.sort((a:IUser, b:IUser)=>{
             if (a.fio > b.fio) {
                 return 1
             }
             return -1
         });
+        return finUsers
     }
     catch (Err) { }
     finally {

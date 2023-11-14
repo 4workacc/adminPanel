@@ -11,11 +11,7 @@ interface IProp {
 const Search = ({placeholder} : IProp) => {
     const searchParams = useSearchParams();
     const {replace} = useRouter();
-    const pathname = usePathname();
-
-    
-
-   
+    const pathname = usePathname(); 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {   
         const params = new URLSearchParams(searchParams);
         params.set("page", "1");     
