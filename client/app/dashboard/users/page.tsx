@@ -1,7 +1,8 @@
 import Pagination from "@/app/ui/dashboard/pagination/pagination";
 import Search from "@/app/ui/dashboard/search/search";
 import styles from "@/app/ui/dashboard/users/users.module.css";
-import fetchAllUsers from "@/app/utils/request";
+import {fetchAllUsers} from "@/app/utils/request";
+import { IUser } from "@/app/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -10,7 +11,7 @@ interface IProp {
 }
 
 const UserPage = async () => {
-    const users = await fetchAllUsers();
+    const users: IUser[] = await fetchAllUsers() || [];
     return (
         <div className={styles.container}>
             <div className={styles.top}>
@@ -31,8 +32,8 @@ const UserPage = async () => {
                     </tr>
                 </thead>
                 <tbody>                   
-                    {users.map((user: any) => (
-                        <tr>
+                    {users.map((user: IUser) => (
+                        <tr key={user.id}>
                             <td><div className={styles.user}>
                                 <Image
                                     src="/userIcon.png"
@@ -40,14 +41,14 @@ const UserPage = async () => {
                                     width={40}
                                     height={40}
                                     className={styles.userImage} />
-                                {user[1]}
+                                {user.fio}
                             </div>
                             </td>
                             <td>
-                                {user[2]}
+                                {user.code0}
                             </td>
                             <td>
-                                {user[3]}
+                                {user.code1}
                             </td>
                             <td>
                                 Admin
