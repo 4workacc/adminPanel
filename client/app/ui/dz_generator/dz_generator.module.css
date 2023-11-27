@@ -1,0 +1,53 @@
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 1px;    
+}
+.container input, .container select{
+    padding: 20px;
+    border: 2px solid #2e374a;
+    border-radius: 5px;
+    background-color: var(--bg);
+    color: var(--text);
+    font-size: 20px;
+}
+.container button{
+    padding: 20px;
+    border: 2px solid #2e374a;
+    border-radius: 5px;
+    background-color: lightcyan;
+    color: black;
+    font-size: 20px;
+}
+.passInfo {
+    width: 100%;
+    height: 150px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+.certInfo, .empInfo, .butInfo{
+    width: 800px;
+    height: 100px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+.empInfo, .butInfo{
+    justify-content: center;
+}
+.cerdId {
+    width: 350px;
+}
