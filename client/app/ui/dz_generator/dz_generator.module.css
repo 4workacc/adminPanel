@@ -35,7 +35,7 @@
     align-items: center;
 }
 .certInfo, .empInfo, .butInfo{
-    width: 800px;
+    width: 1400px;
     height: 100px;
     margin-top: 50px;
     margin-bottom: 50px;
@@ -50,4 +50,5 @@
 }
 .cerdId {
     width: 350px;
+    text-align: center;
 }

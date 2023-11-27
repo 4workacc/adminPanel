@@ -18,6 +18,7 @@ interface IUserData {
     isOldCert: boolean,
     old_certId: string;
     old_fam: string;
+    old_emp: string;
 }
 
 const DZ_GENERATOR = () => {
@@ -59,8 +60,7 @@ const DZ_GENERATOR = () => {
     const [isKeyOld, changeIsKeyOld] = useState<boolean>(false);
 
     const [emp, changeEmp] = useState<string>("");
-    const empChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        console.log(e.target.value);
+    const empChange = (e: React.ChangeEvent<HTMLSelectElement>) => {       
         changeEmp(e.target.value);
     }
 
@@ -77,6 +77,11 @@ const DZ_GENERATOR = () => {
     const [certDate, certDateChange] = useState<string>("");
     const changeCertDate = (e: React.ChangeEvent<HTMLInputElement>) => {
         certDateChange(e.target.value);
+    }
+
+    const [old_emp, oldEmpChange] = useState<string>("");
+    const changeOldEmp = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        oldEmpChange(e.target.value);
     }
     return (
         <div className={styles.container}>
@@ -178,16 +183,28 @@ const DZ_GENERATOR = () => {
                             name="old_fio"
                             placeholder="Иванов"
                             value={oldfam}
-                            onChange={oldfamChange} 
+                            onChange={oldfamChange}
                         />
                     </span>
                     <span>
+                        <label>Должность на момент получения</label>
+                        <select
+                            name="emp"
+                            onChange={changeOldEmp}>
+                            <option value={"Дворник"} >Дворник</option>
+                            <option value={"Водитель"}>Водитель</option>
+                            <option value={"Сторож"}>Сторож</option>
+                            <option value={"Завхоз"}>Завхоз</option>
+                            <option value={"Директор"}>Директор</option>
+                        </select>
+                    </span>
+                    <span>
                         <label>ID ключа</label>
-                        <input 
+                        <input
                             className={styles.cerdId}
-                            type="text" 
-                            name="cert_id" 
-                            placeholder="4040AAAA1111QQQQ2222FFFF" 
+                            type="text"
+                            name="cert_id"
+                            placeholder="4040AAAA1111QQQQ2222FFFF"
                             maxLength={24}
                             minLength={24}
                             value={certId}
@@ -196,9 +213,9 @@ const DZ_GENERATOR = () => {
                     </span>
                     <span>
                         <label>Ключ выдан когда</label>
-                        <input 
-                            type="date" 
-                            name="cert_date" 
+                        <input
+                            type="date"
+                            name="cert_date"
                             value={certDate}
                             onChange={changeCertDate}
                         />
@@ -222,6 +239,7 @@ const DZ_GENERATOR = () => {
                         is_oldCert: isKeyOld,
                         old_certId: certId,
                         old_fam: oldfam,
+                        old_emp: old_emp
                     })
                 }
                 }>GENERATE</button>
