@@ -131,8 +131,8 @@ const DZ_GENERATOR = () => {
                         type="text"
                         name="pass_short"
                         placeholder="AS1231212"
-                        maxLength={8}
-                        minLength={8}
+                        maxLength={9}
+                        minLength={9}
                         value={pass_short}
                         onChange={pass_shortChange}
                     />
