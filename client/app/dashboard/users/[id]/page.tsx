@@ -1,7 +1,15 @@
 import styles from "@/app/ui/dashboard/users/userInfo/userInfo.module.css";
+import { requestUserDataById } from "@/app/utils/requestUserDataById";
+import { IUser } from "@/app/utils/types";
 import Image from "next/image";
 
-const UserInfoPage = () => {
+const UserInfoPage = async ({ params }: { params: { id: string } }) => {
+    const { id } = params;
+    const userData: IUser | {
+        fio: string;
+    } = await requestUserDataById(+id) || {
+        fio: "aa"
+    };
     return (
         <div className={styles.container}>
             <div className={styles.infoContainer}>
@@ -13,7 +21,11 @@ const UserInfoPage = () => {
             <div className={styles.formContainer}>
                 <form action="" className={styles.form}>
                     <label>Username</label>
-                    <input type="text" name="username" placeholder="Joy" />
+                    <input 
+                        type="text"
+                        name="username"
+                        placeholder="Joy" 
+                        value={userData!.fio}/>
 
                     <label>Email</label>
                     <input type="email" name="email" placeholder="Joy@mail.cc" />
