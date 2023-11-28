@@ -11,6 +11,7 @@ export interface IUser{
     status?: string;
     old_fam?: string;
     reason_of_code?: string;
+    certData?: IKey | {cert_id: string};
 }
 export interface IKey {
     id: number;

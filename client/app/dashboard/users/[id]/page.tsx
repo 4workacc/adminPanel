@@ -1,14 +1,16 @@
 import styles from "@/app/ui/dashboard/users/userInfo/userInfo.module.css";
 import { requestUserDataById } from "@/app/utils/requestUserDataById";
-import { IUser } from "@/app/utils/types";
+import { IKey, IUser } from "@/app/utils/types";
 import Image from "next/image";
 
 const UserInfoPage = async ({ params }: { params: { id: string } }) => {
     const { id } = params;
     const userData: IUser | {
         fio: string;
+        certData: IKey | null
     } = await requestUserDataById(+id) || {
-        fio: "aa"
+        fio: "aa",
+        certData: null
     };
     return (
         <div className={styles.container}>
@@ -36,8 +38,12 @@ const UserInfoPage = async ({ params }: { params: { id: string } }) => {
                     <label>Phone</label>
                     <input type="phone" name="phone" placeholder="Joy" />
 
-                    <label>Address</label>
-                    <input type="text" name="address" placeholder="Joy" />
+                    <label>CertId</label>
+                    <input 
+                        type="text"
+                        name="address"
+                        placeholder="Joy"
+                        value={userData.certData!.cert_id}/>
 
                     <label>isAdmin</label>
                     <select name="isAdmin">

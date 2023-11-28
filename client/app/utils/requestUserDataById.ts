@@ -1,9 +1,11 @@
 import { Client, PoolClient } from "pg"
 import conn from "./db"
-import { IUser } from "./types";
+import { IKey, IUser } from "./types";
+import { requestCertDataByUserId } from "./requestCertDataByUserId";
 
 export const requestUserDataById = async (requestUserId: number) => {
     const client: PoolClient = await conn.connect();
+    const curCertData: IKey | {cert_id: string}= await requestCertDataByUserId(requestUserId) || {cert_id: "-1"};
     try {
         const result = await client.query({
             rowMode: 'array',
@@ -21,7 +23,8 @@ export const requestUserDataById = async (requestUserId: number) => {
             domain_name: result.rows[0][8] || "",
             status: result.rows[0][9] || "",
             old_fam: result.rows[0][10] || "",
-            reason_of_code: result.rows[0][11] || ""
+            reason_of_code: result.rows[0][11] || "",
+            certData: curCertData,
         };
      return newUser
     }
