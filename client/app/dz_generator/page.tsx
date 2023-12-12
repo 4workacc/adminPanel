@@ -4,6 +4,7 @@ import { generateDocument } from "../utils/doctemplater";
 import { useState } from 'react';
 
 import styles from '../ui/dz_generator/dz_generator.module.css';
+import { IKey } from "../utils/types";
 
 interface IUserData {
     fam: string;
@@ -20,19 +21,34 @@ interface IUserData {
     old_fam: string;
     old_emp: string;
 }
+interface IProp {
+    searchParams: {
+        fio: string,
+        emp: string,
+        certDataFam: string,
+        certDataEmp: string,
+        certDataId: string,    
+    };
+}
 
-const DZ_GENERATOR = () => {
-    const [fam, changeFam] = useState<string>("");
+const DZ_GENERATOR = ({searchParams}:IProp) => {
+    const requestFIO: string[] = (searchParams.fio ? searchParams.fio.split(' ') : []);   
+    const requestEmp: string = (searchParams.emp ? searchParams.emp : "");  
+    const requestCerdDataFam: string = searchParams.certDataFam;
+    const requestCerdDataEmp: string = searchParams.certDataEmp;
+    const requestCerdDataId: string = searchParams.certDataId;    
+    console.log(searchParams); 
+    const [fam, changeFam] = useState<string>(requestFIO[0]||"");
     const famChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         changeFam(e.target.value);
     }
 
-    const [nam, changeNam] = useState<string>("");
+    const [nam, changeNam] = useState<string>(requestFIO[1]||"");
     const namChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         changeNam(e.target.value);
     }
 
-    const [sub, changeSub] = useState<string>("");
+    const [sub, changeSub] = useState<string>(requestFIO[2]||"");
     const subChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         changeSub(e.target.value);
     }
@@ -59,7 +75,7 @@ const DZ_GENERATOR = () => {
 
     const [isKeyOld, changeIsKeyOld] = useState<boolean>(false);
 
-    const [emp, changeEmp] = useState<string>("");
+    const [emp, changeEmp] = useState<string>(requestEmp);
     const empChange = (e: React.ChangeEvent<HTMLSelectElement>) => {       
         changeEmp(e.target.value);
     }
@@ -161,7 +177,7 @@ const DZ_GENERATOR = () => {
                 <select
                     name="emp"
                     onChange={empChange}>
-                    <option value={"Дворник"} >Дворник</option>
+                    <option value={"Дворник"}>Дворник</option>
                     <option value={"Водитель"}>Водитель</option>
                     <option value={"Сторож"}>Сторож</option>
                     <option value={"Завхоз"}>Завхоз</option>
@@ -182,7 +198,7 @@ const DZ_GENERATOR = () => {
                             type="text"
                             name="old_fio"
                             placeholder="Иванов"
-                            value={oldfam}
+                            value={requestCerdDataFam}
                             onChange={oldfamChange}
                         />
                     </span>
@@ -207,11 +223,11 @@ const DZ_GENERATOR = () => {
                             placeholder="4040AAAA1111QQQQ2222FFFF"
                             maxLength={24}
                             minLength={24}
-                            value={certId}
+                            value={requestCerdDataId}
                             onChange={changeCertId}
                         />
                     </span>
-                    <span>
+                    {/* <span>
                         <label>Ключ выдан когда</label>
                         <input
                             type="date"
@@ -219,7 +235,7 @@ const DZ_GENERATOR = () => {
                             value={certDate}
                             onChange={changeCertDate}
                         />
-                    </span>
+                    </span> */}
                 </div>}
             </div>
             <div className={styles.butInfo}>
