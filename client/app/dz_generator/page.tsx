@@ -80,12 +80,12 @@ const DZ_GENERATOR = ({searchParams}:IProp) => {
         changeEmp(e.target.value);
     }
 
-    const [oldfam, changeOldFam] = useState<string>("");
+    const [oldfam, changeOldFam] = useState<string>(requestCerdDataFam);
     const oldfamChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         changeOldFam(e.target.value);
     }
 
-    const [certId, certIdChange] = useState<string>("");
+    const [certId, certIdChange] = useState<string>(requestCerdDataId);
     const changeCertId = (e: React.ChangeEvent<HTMLInputElement>) => {
         certIdChange(e.target.value);
     }
@@ -198,7 +198,7 @@ const DZ_GENERATOR = ({searchParams}:IProp) => {
                             type="text"
                             name="old_fio"
                             placeholder="Иванов"
-                            value={requestCerdDataFam}
+                            value={oldfam}
                             onChange={oldfamChange}
                         />
                     </span>
@@ -223,7 +223,7 @@ const DZ_GENERATOR = ({searchParams}:IProp) => {
                             placeholder="4040AAAA1111QQQQ2222FFFF"
                             maxLength={24}
                             minLength={24}
-                            value={requestCerdDataId}
+                            value={certId}
                             onChange={changeCertId}
                         />
                     </span>
